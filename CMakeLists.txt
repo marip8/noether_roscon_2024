@@ -17,6 +17,8 @@ add_library(${PROJECT_NAME} SHARED
   src/exercise_2a/mesh_modifier_widget.cpp
   # Exercise 2b
   # Exercise 2c
+  # Plugins
+  src/plugins.cpp
 )
 # Link against headers from this repository
 target_include_directories(${PROJECT_NAME} PUBLIC
