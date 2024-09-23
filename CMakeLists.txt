@@ -14,18 +14,21 @@ find_package(Qt5 REQUIRED COMPONENTS Widgets)
 add_library(${PROJECT_NAME} SHARED
   # Exercise 2a
   src/exercise_2a/mesh_modifier.cpp
+  src/exercise_2a/mesh_modifier_widget.cpp
   # Exercise 2b
   # Exercise 2c
 )
-
 # Link against headers from this repository
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  "$<INSTALL_INTERFACE:include>")
-
-# Link against `noether_tpp` and `noether_gui` libraries
-target_link_libraries(${PROJECT_NAME} PUBLIC noether::noether_tpp noether::noether_gui)
-
+  "$<INSTALL_INTERFACE:include>"
+)
+# Link against dependency targets
+target_link_libraries(${PROJECT_NAME} PUBLIC
+  noether::noether_tpp
+  noether::noether_gui
+  Qt5::Widgets
+)
 # Set a specific cxx version using RICB macro
 target_cxx_version(${PROJECT_NAME} PUBLIC VERSION 14)
 
