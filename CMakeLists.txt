@@ -10,5 +10,27 @@ find_package(noether_tpp REQUIRED)
 find_package(noether_gui REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
 
+# Add a library for our custom tool path planning components
+add_library(${PROJECT_NAME} SHARED
+  # Exercise 2a
+  src/exercise_2a/mesh_modifier.cpp
+  # Exercise 2b
+  # Exercise 2c
+)
+
+# Link against headers from this repository
+target_include_directories(${PROJECT_NAME} PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>")
+
+# Link against `noether_tpp` and `noether_gui` libraries
+target_link_libraries(${PROJECT_NAME} PUBLIC noether::noether_tpp noether::noether_gui)
+
+# Set a specific cxx version using RICB macro
+target_cxx_version(${PROJECT_NAME} PUBLIC VERSION 14)
+
+# Install headers
+install(DIRECTORY include/ DESTINATION include/)
+
 # Package configuration via RICB
-configure_package()
+configure_package(NAMESPACE noether DEPENDENCIES noether_tpp noether_gui "Qt5 REQUIRED COMPONENTS Widgets" TARGETS ${PROJECT_NAME})
