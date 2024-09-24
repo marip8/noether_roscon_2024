@@ -17,8 +17,6 @@ add_library(${PROJECT_NAME} SHARED
   src/exercise_2a/mesh_modifier_widget.cpp
   # Exercise 2b
   # Exercise 2c
-  # Plugins
-  src/plugins.cpp
 )
 # Link against headers from this repository
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -34,8 +32,12 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 # Set a specific cxx version using RICB macro
 target_cxx_version(${PROJECT_NAME} PUBLIC VERSION 14)
 
+# Plugin library
+add_library(${PROJECT_NAME}_plugins SHARED src/plugins.cpp)
+target_link_libraries(${PROJECT_NAME}_plugins ${PROJECT_NAME})
+
 # Install headers
 install(DIRECTORY include/ DESTINATION include/)
 
 # Package configuration via RICB
-configure_package(NAMESPACE noether DEPENDENCIES noether_tpp noether_gui "Qt5 REQUIRED COMPONENTS Widgets" TARGETS ${PROJECT_NAME})
+configure_package(NAMESPACE noether DEPENDENCIES noether_tpp noether_gui "Qt5 REQUIRED COMPONENTS Widgets" TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_plugins)
