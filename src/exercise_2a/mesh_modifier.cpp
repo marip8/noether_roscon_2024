@@ -3,9 +3,13 @@
 // Include SAC segmentation from PCL
 #include <pcl/sample_consensus/ransac.h>
 #include <pcl/sample_consensus/sac_model_cylinder.h>
+#include <pcl/conversions.h>
 
 // Include function from `noether` for extracting a sub-mesh from vertex inliers
 #include <noether_tpp/mesh_modifiers/subset_extraction/subset_extractor.h>
+
+// Include for std::iota
+#include <numeric>
 
 namespace noether
 {
