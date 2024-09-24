@@ -1,6 +1,6 @@
 #include <yaml-cpp/yaml.h>
 #include <noether_gui/plugin_interface.h>
-#include <noether_roscon_2024/exercise_2a/mesh_modifier_widget.h>
+#include <noether_roscon_2024/exercise_2a/cylinder_segmentation_mesh_modifier_widget.h>
 
 namespace noether
 {

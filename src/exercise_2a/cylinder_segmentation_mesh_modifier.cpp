@@ -1,4 +1,4 @@
-#include <noether_roscon_2024/exercise_2a/mesh_modifier.h>
+#include <noether_roscon_2024/exercise_2a/cylinder_segmentation_mesh_modifier.h>
 
 // Include SAC segmentation from PCL
 #include <pcl/sample_consensus/ransac.h>
