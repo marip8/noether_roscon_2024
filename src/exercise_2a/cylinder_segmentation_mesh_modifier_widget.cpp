@@ -30,27 +30,27 @@ CylinderSegmentationMeshModifierWidget::CylinderSegmentationMeshModifierWidget(Q
 
   // Min radius
   {
+    min_radius_->setMinimum(0.0);
     min_radius_->setValue(0.050);
     min_radius_->setDecimals(3);
-    min_radius_->setMinimum(0.0);
     min_radius_->setSingleStep(0.010);
     layout->addRow("Min Radius (m)", min_radius_);
   }
 
   // Max radius
   {
+    max_radius_->setMinimum(0.0);
     max_radius_->setValue(0.100);
     max_radius_->setDecimals(3);
-    max_radius_->setMinimum(0.0);
     max_radius_->setSingleStep(0.010);
     layout->addRow("Max Radius (m)", max_radius_);
   }
 
   // Distance threshold
   {
+    distance_threshold_->setMinimum(0.0);
     distance_threshold_->setValue(0.010);
     distance_threshold_->setDecimals(3);
-    distance_threshold_->setMinimum(0.0);
     distance_threshold_->setSingleStep(0.001);
     layout->addRow("Distance threshold (m)", distance_threshold_);
   }
@@ -58,41 +58,42 @@ CylinderSegmentationMeshModifierWidget::CylinderSegmentationMeshModifierWidget(Q
   // Axis threshold
   {
     // TODO: use degrees instead of radians in the UI
+    axis_threshold_->setMinimum(0.0);
     axis_threshold_->setValue(10.0 * M_PI / 180.0);
     axis_threshold_->setDecimals(3);
-    axis_threshold_->setMinimum(0.0);
     axis_threshold_->setSingleStep(0.02);
     layout->addRow("Axis threshold (rad)", axis_threshold_);
   }
 
   // Normal distance weight
   {
-    normal_distance_weight_->setValue(0.5);
-    normal_distance_weight_->setDecimals(3);
     normal_distance_weight_->setMinimum(0.0);
     normal_distance_weight_->setMaximum(1.0);
+    normal_distance_weight_->setValue(0.5);
+    normal_distance_weight_->setDecimals(3);
     normal_distance_weight_->setSingleStep(0.1);
     layout->addRow("Normal distance weight", normal_distance_weight_);
   }
 
   // Min vertices
   {
-    min_vertices_->setValue(1);
     min_vertices_->setMinimum(1);
+    min_vertices_->setValue(1);
     layout->addRow("Min vertices", min_vertices_);
   }
 
   // Max cylinders
   {
-    max_cylinders_->setValue(-1);
     max_cylinders_->setMinimum(-1);
+    max_cylinders_->setValue(-1);
     layout->addRow("Max cylinders", max_cylinders_);
   }
 
   // Max iterations
   {
-    max_iterations_->setValue(100);
     max_iterations_->setMinimum(1);
+    max_iterations_->setMaximum(10'000);
+    max_iterations_->setValue(100);
     layout->addRow("Max iterations", max_iterations_);
   }
 }
