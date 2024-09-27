@@ -15,6 +15,7 @@ add_library(${PROJECT_NAME} SHARED
   src/exercise_2a/cylinder_segmentation_mesh_modifier_widget.cpp
   # Exercise 2b
   # Exercise 2c
+  src/exercise_2c/camera_standoff_tool_path_modifier_widget.cpp
 )
 # Link against headers from this repository
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -30,7 +31,7 @@ target_cxx_version(${PROJECT_NAME} PUBLIC VERSION 14)
 
 # Plugin library
 add_library(${PROJECT_NAME}_plugins SHARED src/plugins.cpp)
-target_link_libraries(${PROJECT_NAME}_plugins ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME}_plugins PUBLIC ${PROJECT_NAME})
 
 # Install headers
 install(DIRECTORY include/ DESTINATION include/)
