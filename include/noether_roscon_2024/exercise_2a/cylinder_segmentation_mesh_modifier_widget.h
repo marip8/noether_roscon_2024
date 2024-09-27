@@ -16,8 +16,8 @@ public:
 
   MeshModifier::ConstPtr create() const override;
 
-  using MeshModifierWidget::configure;
-  using MeshModifierWidget::save;
+  void configure(const YAML::Node& config) override;
+  void save(YAML::Node& config) const override;
 
 protected:
   // UI elements needed to configure a cylinder segmentation mesh modifier

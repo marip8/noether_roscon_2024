@@ -3,6 +3,9 @@
 // Include the implementation of the mesh modifier itself
 #include <noether_roscon_2024/exercise_2a/cylinder_segmentation_mesh_modifier.h>
 
+// Include for YAML getEntry utility
+#include <noether_gui/utils.h>
+
 // Includes for the UI
 #include <QFormLayout>
 #include <QDoubleSpinBox>
@@ -119,6 +122,30 @@ MeshModifier::ConstPtr CylinderSegmentationMeshModifierWidget::create() const
                                                             min_vertices,
                                                             max_cylinders,
                                                             max_iterations);
+}
+
+void CylinderSegmentationMeshModifierWidget::configure(const YAML::Node& config)
+{
+  min_radius_->setValue(getEntry<double>(config, "min_radius"));
+  max_radius_->setValue(getEntry<double>(config, "max_radius"));
+  distance_threshold_->setValue(getEntry<double>(config, "distance_threshold"));
+  axis_threshold_->setValue(getEntry<double>(config, "axis_threshold"));  // TODO: convert from degrees to radians once the UI is updated
+  normal_distance_weight_->setValue(getEntry<double>(config, "normal_distance_weight"));
+  min_vertices_->setValue(getEntry<int>(config, "min_vertices"));
+  max_cylinders_->setValue(getEntry<int>(config, "max_cylinders"));
+  max_iterations_->setValue(getEntry<int>(config, "max_iterations"));
+}
+
+void CylinderSegmentationMeshModifierWidget::save(YAML::Node& config) const
+{
+  config["min_radius"] = min_radius_->value();
+  config["max_radius"] = max_radius_->value();
+  config["distance_threshold"] = distance_threshold_->value();
+  config["axis_threshold"] = axis_threshold_->value();  // TODO: convert from degrees to radians once the UI is updated
+  config["normal_distance_weight"] = normal_distance_weight_->value();
+  config["min_vertices"] = min_vertices_->value();
+  config["max_cylinders"] = max_cylinders_->value();
+  config["max_iterations"] = max_iterations_->value();
 }
 
 } // namespace noether
