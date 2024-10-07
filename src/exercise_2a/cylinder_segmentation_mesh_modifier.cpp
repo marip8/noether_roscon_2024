@@ -71,7 +71,8 @@ std::vector<pcl::PolygonMesh> CylinderSegmentationMeshModifier::modify(const pcl
   {
     // Fit a cylinder model to the vertices using RANSAC
     model->setIndices(remaining_indices);
-    ransac->computeModel();
+    if (!ransac->computeModel())
+      break;
 
     // Extract the inliers and ensure there are enough to form a valid model cluster
     std::vector<int> inliers;
