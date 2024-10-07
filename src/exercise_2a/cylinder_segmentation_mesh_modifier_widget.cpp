@@ -81,6 +81,7 @@ CylinderSegmentationMeshModifierWidget::CylinderSegmentationMeshModifierWidget(Q
   // Min vertices
   {
     min_vertices_->setMinimum(1);
+    min_vertices_->setMaximum(std::numeric_limits<int>::max());
     min_vertices_->setValue(1);
     layout->addRow("Min vertices", min_vertices_);
   }
@@ -88,6 +89,7 @@ CylinderSegmentationMeshModifierWidget::CylinderSegmentationMeshModifierWidget(Q
   // Max cylinders
   {
     max_cylinders_->setMinimum(-1);
+    max_cylinders_->setMaximum(std::numeric_limits<int>::max());
     max_cylinders_->setValue(-1);
     layout->addRow("Max cylinders", max_cylinders_);
   }
