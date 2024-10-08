@@ -14,6 +14,8 @@ add_library(${PROJECT_NAME} SHARED
   src/exercise_2a/cylinder_segmentation_mesh_modifier.cpp
   src/exercise_2a/cylinder_segmentation_mesh_modifier_widget.cpp
   # Exercise 2b
+  src/exercise_2b/no_op_tool_path_planner.cpp
+  src/exercise_2b/no_op_tool_path_planner_widget.cpp
   # Exercise 2c
   src/exercise_2c/camera_standoff_tool_path_modifier_widget.cpp
 )
