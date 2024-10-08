@@ -9,38 +9,77 @@
 #include <pcl/sample_consensus/sac_model_cylinder.h>
 #include <pcl/conversions.h>
 
-// Include for pcl::concatenateFields
-#include <pcl/common/io.h>
-
 // Include for std::iota
 #include <numeric>
 
 namespace noether
 {
-pcl::PolygonMesh project(const pcl::PolygonMesh& mesh,
-                         pcl::Indices& inliers,
-                         pcl::shared_ptr<pcl::SampleConsensusModelCylinder<pcl::PointXYZ, pcl::Normal>> model,
-                         pcl::shared_ptr<pcl::RandomSampleConsensus<pcl::PointXYZ>> ransac)
+/**
+ * @brief Projects points onto the cylinder model in place
+ * @details pcl::SampleConsensusModelCylinder has a bug in `projectPoints` that was fixed in 1.12.1.
+ * To support back to PCL 1.10 (Ubuntu 20.04), we have implemented the projection function ourselves to include the bug fix
+ */
+void projectInPlace(pcl::PCLPointCloud2& cloud,
+                    const Eigen::VectorXf &model_coefficients)
 {
-  Eigen::VectorXf coefficients;
-  ransac->getModelCoefficients(coefficients);
-  pcl::PointCloud<pcl::PointXYZ> projected_inliers;
-  model->projectPoints(inliers, coefficients, projected_inliers, false);
+  Eigen::Vector4f line_pt  (model_coefficients[0], model_coefficients[1], model_coefficients[2], 0.0f);
+  Eigen::Vector4f line_dir (model_coefficients[3], model_coefficients[4], model_coefficients[5], 0.0f);
+  float ptdotdir = line_pt.dot (line_dir);
+  float dirdotdir = 1.0f / line_dir.dot (line_dir);
 
-  // TODO: Update point normals based on model coefficients
+  // Create a helper function for projecting each point
+  // https://github.com/PointCloudLibrary/pcl/blob/5f608cfb5397fe848c7d61c4ae5f5b1ab760ba80/sample_consensus/include/pcl/sample_consensus/impl/sac_model_cylinder.hpp#L398-L407
+  auto project_point = [&](const Eigen::Vector4f& p) -> Eigen::Vector4f {
+    Eigen::VectorXf pp;
+    float k = (p.dot(line_dir) - ptdotdir) * dirdotdir;
+    // Calculate the projection of the point on the line
+    pp.matrix() = line_pt + k * line_dir;
 
-  // Convert from point cloud object to message type
-  pcl::PCLPointCloud2 projected_inliers_msg;
-  pcl::toPCLPointCloud2(projected_inliers, projected_inliers_msg);
+    Eigen::Vector4f dir = p - pp;
+    dir[3] = 0.0f;
+    dir.normalize ();
 
-  // Create the output mesh
-  // Use `pcl::concatenateFields` to overwrite the xyz fields of the original mesh vertices with the xyz fields of the projected vertices
-  // while retaining the information in all other fields (e.g., color, etc)
-  pcl::PolygonMesh projected_mesh;
-  projected_mesh.polygons = mesh.polygons;
-  pcl::concatenateFields(mesh.cloud, projected_inliers_msg, projected_mesh.cloud);
+    // Calculate the projection of the point onto the cylinder
+    pp += dir * model_coefficients[6];
 
-  return projected_mesh;
+    return pp;
+  };
+
+  // Find the x, y, and z fields
+  auto x_it = findFieldOrThrow(cloud.fields, "x");
+  auto y_it = findFieldOrThrow(cloud.fields, "y");
+  auto z_it = findFieldOrThrow(cloud.fields, "z");
+
+  // Check that the xyz fields are floats and contiguous
+  if ((y_it->offset - x_it->offset != 4) || (z_it->offset - y_it->offset != 4))
+    throw std::runtime_error("XYZ fields are not contiguous floats");
+
+  // auto nx_it = findField(cloud.fields, "normal_x");
+  // auto ny_it = findField(cloud.fields, "normal_y");
+  // auto nz_it = findField(cloud.fields, "normal_z");
+
+  // bool update_normals = nx_it != cloud.fields.end() && ny_it != cloud.fields.end() && nz_it != cloud.fields.end();
+
+  for (std::size_t r = 0; r < cloud.height; ++r)
+  {
+    for (std::size_t c = 0; c < cloud.width; ++c)
+    {
+      auto offset = r * cloud.row_step + c * cloud.point_step;
+      float* xyz = reinterpret_cast<float*>(cloud.data.data() + offset + x_it->offset);
+      Eigen::Map<Eigen::Vector4f> p(xyz);
+
+      // Project the point in place
+      p = project_point(p);
+
+      // TODO: update calculation of normals
+      // if (update_normals)
+      // {
+      //   float* nx = reinterpret_cast<float*>(cloud.data.data() + offset + nx_it->offset);
+      //   float* ny = reinterpret_cast<float*>(cloud.data.data() + offset + ny_it->offset);
+      //   float* nz = reinterpret_cast<float*>(cloud.data.data() + offset + nz_it->offset);
+      // }
+    }
+  }
 }
 
 CylinderSegmentationMeshModifier::CylinderSegmentationMeshModifier(float min_radius,
@@ -115,15 +154,15 @@ std::vector<pcl::PolygonMesh> CylinderSegmentationMeshModifier::modify(const pcl
     if (inliers.size() < min_vertices_)
       break;
 
-    // Project the mesh onto the cylinder model
-    // We cannot (easily) project only the inlier vertices after extracting the sub-mesh because the inliers of sub-mesh extraction can be a subset of the original inliers due to the removal of unreferenced vertices.
-    // Therefore, we choose to project all vertices onto the model and then perform sub-mesh extraction for simplicity
-    pcl::PolygonMesh projected_mesh = project(mesh, all_indices, model, ransac);
-
     // Extract the inlier submesh
-    pcl::PolygonMesh output_mesh = extractSubMeshFromInlierVertices(projected_mesh, inliers);
+    pcl::PolygonMesh output_mesh = extractSubMeshFromInlierVertices(mesh, inliers);
     if (!output_mesh.polygons.empty())
     {
+      // Project the mesh
+      Eigen::VectorXf coefficients;
+      ransac->getModelCoefficients(coefficients);
+      projectInPlace(output_mesh.cloud, coefficients);
+
       // Append the extracted and projected mesh to the vector of output meshes
       output.push_back(output_mesh);
     }
