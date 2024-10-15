@@ -1,4 +1,4 @@
-#include <noether_roscon_2024/exercise_2c/camera_standoff_tool_path_modifier_widget.h>
+#include <noether_roscon_2024/exercise_2a/camera_standoff_tool_path_modifier_widget.h>
 
 // Include existing `OffsetToolPathModifier` from `noether_tpp`
 #include <noether_tpp/tool_path_modifiers/offset_modifier.h>

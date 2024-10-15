@@ -1,7 +1,7 @@
-#include <noether_roscon_2024/exercise_2a/cylinder_segmentation_mesh_modifier_widget.h>
+#include <noether_roscon_2024/exercise_2b/cylinder_segmentation_mesh_modifier_widget.h>
 
 // Include the implementation of the mesh modifier itself
-#include <noether_roscon_2024/exercise_2a/cylinder_segmentation_mesh_modifier.h>
+#include <noether_roscon_2024/exercise_2b/cylinder_segmentation_mesh_modifier.h>
 
 // Include for YAML getEntry utility
 #include <noether_gui/utils.h>

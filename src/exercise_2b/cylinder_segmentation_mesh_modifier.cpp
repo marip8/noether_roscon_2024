@@ -1,4 +1,4 @@
-#include <noether_roscon_2024/exercise_2a/cylinder_segmentation_mesh_modifier.h>
+#include <noether_roscon_2024/exercise_2b/cylinder_segmentation_mesh_modifier.h>
 
 // Include for noether utilties
 #include <noether_tpp/mesh_modifiers/subset_extraction/subset_extractor.h>
