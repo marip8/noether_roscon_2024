@@ -5,12 +5,6 @@
 
 namespace noether
 {
-class NoOpToolPathPlannerWidget : public ToolPathPlannerWidget
-{
-public:
-  using ToolPathPlannerWidget::ToolPathPlannerWidget;
-
-  ToolPathPlanner::ConstPtr create() const override;
-};
+// TODO create a class called NoOpToolPathPlannerWidget that inherits ToolPathPlannerWidget
 
 } // namespace noether

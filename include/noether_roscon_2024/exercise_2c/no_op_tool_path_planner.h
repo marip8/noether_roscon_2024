@@ -4,12 +4,6 @@
 
 namespace noether
 {
-class NoOpToolPathPlanner : public ToolPathPlanner
-{
-public:
-  using ToolPathPlanner::ToolPathPlanner;
-
-  ToolPaths plan(const pcl::PolygonMesh& mesh) const override;
-};
+// TODO: create a class called NoOpToolPathPlanner that inherits the ToolPathPlanner base class
 
 } // namespace noether

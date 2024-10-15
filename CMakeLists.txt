@@ -10,14 +10,14 @@ find_package(noether_gui REQUIRED)
 
 # Add a library for our custom tool path planning components
 add_library(${PROJECT_NAME} SHARED
-  # Exercise 2c
+  # Exercise 2a
   src/exercise_2a/camera_standoff_tool_path_modifier_widget.cpp
   # Exercise 2b
-  src/exercise_2b/cylinder_segmentation_mesh_modifier.cpp
-  src/exercise_2b/cylinder_segmentation_mesh_modifier_widget.cpp
+  # src/exercise_2b/cylinder_segmentation_mesh_modifier.cpp
+  # src/exercise_2b/cylinder_segmentation_mesh_modifier_widget.cpp
   # Exercise 2c
-  src/exercise_2c/no_op_tool_path_planner.cpp
-  src/exercise_2c/no_op_tool_path_planner_widget.cpp
+  # src/exercise_2c/no_op_tool_path_planner.cpp
+  # src/exercise_2c/no_op_tool_path_planner_widget.cpp
 )
 # Link against headers from this repository
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -32,7 +32,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 target_cxx_version(${PROJECT_NAME} PUBLIC VERSION 14)
 
 # Plugin library
-add_library(${PROJECT_NAME}_plugins SHARED src/plugins.cpp)
+add_library(${PROJECT_NAME}_plugins SHARED
+  src/plugins.cpp
+)
 target_link_libraries(${PROJECT_NAME}_plugins PUBLIC ${PROJECT_NAME})
 
 # Install headers

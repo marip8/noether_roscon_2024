@@ -71,7 +71,6 @@ void projectInPlace(pcl::PCLPointCloud2& cloud,
       // Project the point in place
       p = project_point(p);
 
-      // TODO: update calculation of normals
       // if (update_normals)
       // {
       //   float* nx = reinterpret_cast<float*>(cloud.data.data() + offset + nx_it->offset);
@@ -117,15 +116,14 @@ std::vector<pcl::PolygonMesh> CylinderSegmentationMeshModifier::modify(const pcl
 
   // Set up the RANSAC cylinder fit model
   auto model = pcl::make_shared<pcl::SampleConsensusModelCylinder<pcl::PointXYZ, pcl::Normal>>(cloud_points);
-  model->setInputNormals(cloud_normals);
-  model->setNormalDistanceWeight(normal_distance_weight_);
-  model->setRadiusLimits(min_radius_, max_radius_);
-  model->setAxis(Eigen::Vector3f::UnitZ());
-  model->setEpsAngle(axis_threshold_);
+
+  // TODO: configure the model given the members of this class (API reference: https://pointclouds.org/documentation/classpcl_1_1_sample_consensus_model_cylinder.html)
+
 
   auto ransac = pcl::make_shared<pcl::RandomSampleConsensus<pcl::PointXYZ>>(model);
-  ransac->setDistanceThreshold(distance_threshold_);
-  ransac->setMaxIterations(max_iterations_);
+
+  // TODO: configure RANSAC given the members of this class (API reference: https://pointclouds.org/documentation/classpcl_1_1_random_sample_consensus.html)
+
 
   // Create a vector of indices for the remaining indices to which a cylinder model can be fit
   // To start, all indices are remaining (i.e., [0, 1, 2, ..., cloud->size() - 1])
@@ -154,14 +152,12 @@ std::vector<pcl::PolygonMesh> CylinderSegmentationMeshModifier::modify(const pcl
     if (inliers.size() < min_vertices_)
       break;
 
-    // Extract the inlier submesh
+    // Extract the inlier sub-mesh
     pcl::PolygonMesh output_mesh = extractSubMeshFromInlierVertices(mesh, inliers);
     if (!output_mesh.polygons.empty())
     {
-      // Project the mesh
-      Eigen::VectorXf coefficients;
-      ransac->getModelCoefficients(coefficients);
-      projectInPlace(output_mesh.cloud, coefficients);
+      // TODO: Project the sub-mesh onto the model
+      // Note: get the model coefficients from the RANSAC object and then use the existing `projectInPlace` method
 
       // Append the extracted and projected mesh to the vector of output meshes
       output.push_back(output_mesh);

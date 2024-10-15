@@ -5,7 +5,7 @@ namespace noether
 {
 ToolPathPlanner::ConstPtr NoOpToolPathPlannerWidget::create() const
 {
-  return std::make_unique<NoOpToolPathPlanner>();
+  // TODO: create the no-op tool path planner
 }
 
 } // namespace noether

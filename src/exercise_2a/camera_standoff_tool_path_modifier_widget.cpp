@@ -23,11 +23,9 @@ CameraStandoffToolPathModifierWidget::CameraStandoffToolPathModifierWidget(QWidg
 
   // Camera standoff
   {
-    camera_standoff_->setMinimum(0.0);
-    camera_standoff_->setMaximum(2.0);
-    camera_standoff_->setValue(0.2);
-    camera_standoff_->setDecimals(3);
-    camera_standoff_->setSingleStep(0.010);
+    // TODO: configure the spin box with useful default values (API reference: https://doc.qt.io/qt-5/qdoublespinbox.html)
+
+    // Add the widget to the layout
     layout->addRow("Camera standoff (m)", camera_standoff_);
   }
 }
@@ -37,14 +35,12 @@ ToolPathModifier::ConstPtr CameraStandoffToolPathModifierWidget::create() const
   // Create an camera standoff pose and initialize as identity
   Eigen::Isometry3d camera_standoff(Eigen::Isometry3d::Identity());
 
-  // Translate the pose out in the +z-axis by the camera standoff value
-  double camera_standoff_z = camera_standoff_->value();
-  camera_standoff.translate(Eigen::Vector3d(0.0, 0.0, camera_standoff_z));
+  // TODO: Translate the pose out in the +z-axis by the camera standoff value
 
-  // Rotate about the x-axis by 180 degrees, such that the z-axis of the pose now points back at the mesh
-  camera_standoff.rotate(Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()));
+  // TODO: Rotate about the x-axis by 180 degrees, such that the z-axis of the pose now points back at the mesh
 
-  // Create the offset modifier given the camera standoff pose
+  // TODO: Create the offset modifier given the camera standoff pose
+
   return std::make_unique<OffsetModifier>(camera_standoff);
 }
 
