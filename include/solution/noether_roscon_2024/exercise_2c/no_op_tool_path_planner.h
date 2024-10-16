@@ -12,4 +12,4 @@ public:
   ToolPaths plan(const pcl::PolygonMesh& mesh) const override;
 };
 
-} // namespace noether
+}  // namespace noether

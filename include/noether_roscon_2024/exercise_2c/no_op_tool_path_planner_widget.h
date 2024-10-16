@@ -7,4 +7,4 @@ namespace noether
 {
 // TODO create a class called NoOpToolPathPlannerWidget that inherits ToolPathPlannerWidget
 
-} // namespace noether
+}  // namespace noether

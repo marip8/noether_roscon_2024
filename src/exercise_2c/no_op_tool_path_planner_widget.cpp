@@ -8,4 +8,4 @@ ToolPathPlanner::ConstPtr NoOpToolPathPlannerWidget::create() const
   // TODO: create the no-op tool path planner
 }
 
-} // namespace noether
+}  // namespace noether

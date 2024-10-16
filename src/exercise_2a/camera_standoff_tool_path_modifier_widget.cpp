@@ -13,8 +13,7 @@
 namespace noether
 {
 CameraStandoffToolPathModifierWidget::CameraStandoffToolPathModifierWidget(QWidget* parent)
-  : ToolPathModifierWidget(parent)
-  , camera_standoff_(new QDoubleSpinBox(this))
+  : ToolPathModifierWidget(parent), camera_standoff_(new QDoubleSpinBox(this))
 {
   // Create the UI
 
@@ -23,7 +22,8 @@ CameraStandoffToolPathModifierWidget::CameraStandoffToolPathModifierWidget(QWidg
 
   // Camera standoff
   {
-    // TODO: configure the spin box with useful default values (API reference: https://doc.qt.io/qt-5/qdoublespinbox.html)
+    // TODO: configure the spin box with useful default values (API reference:
+    // https://doc.qt.io/qt-5/qdoublespinbox.html)
 
     // Add the widget to the layout
     layout->addRow("Camera standoff (m)", camera_standoff_);
@@ -54,4 +54,4 @@ void CameraStandoffToolPathModifierWidget::save(YAML::Node& config) const
   config["camera_standoff"] = camera_standoff_->value();
 }
 
-} // namespace noether
+}  // namespace noether

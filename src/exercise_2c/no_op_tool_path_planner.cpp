@@ -4,4 +4,4 @@ namespace noether
 {
 // TODO: implement the plan function of the no-op tool path planner that returns no tool paths
 
-} // namespace noether
+}  // namespace noether

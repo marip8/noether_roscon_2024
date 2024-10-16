@@ -13,8 +13,7 @@
 namespace noether
 {
 CameraStandoffToolPathModifierWidget::CameraStandoffToolPathModifierWidget(QWidget* parent)
-  : ToolPathModifierWidget(parent)
-  , camera_standoff_(new QDoubleSpinBox(this))
+  : ToolPathModifierWidget(parent), camera_standoff_(new QDoubleSpinBox(this))
 {
   // Create the UI
 
@@ -58,4 +57,4 @@ void CameraStandoffToolPathModifierWidget::save(YAML::Node& config) const
   config["camera_standoff"] = camera_standoff_->value();
 }
 
-} // namespace noether
+}  // namespace noether

@@ -29,7 +29,8 @@ CylinderSegmentationMeshModifierWidget::CylinderSegmentationMeshModifierWidget(Q
   // Create a form layout for the UI
   auto layout = new QFormLayout(this);
 
-  // Add each parameter as a new row with a label about the parameter and a widget for adjusting the parameter (e.g., a spin box)
+  // Add each parameter as a new row with a label about the parameter and a widget for adjusting the parameter (e.g., a
+  // spin box)
 
   // Min radius
   {
@@ -119,5 +120,4 @@ void CylinderSegmentationMeshModifierWidget::save(YAML::Node& config) const
   config["max_iterations"] = max_iterations_->value();
 }
 
-} // namespace noether
-
+}  // namespace noether

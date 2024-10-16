@@ -61,7 +61,7 @@ namespace noether
 //   }
 // };
 
-} // namespace noether
+}  // namespace noether
 
 // Export the plugin
 
