@@ -1,0 +1,14 @@
+mesh_modifiers:
+  - name: PlaneProjectionModifier
+    distance_threshold: 0.001
+    max_planes: 2
+    min_vertices: 1
+  - name: FillHoles
+    max_hole_size: 0.10000000000000001
+  - name: NormalsFromMeshFaces
+tool_path_planner:
+  name: BoundaryEdgePlanner
+tool_path_modifiers:
+  - name: UniformSpacingLinearModifier
+    point_spacing: 0.01
+  - name: DirectionOfTravelOrientationModifier

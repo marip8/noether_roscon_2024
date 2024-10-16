@@ -1,0 +1,30 @@
+mesh_modifiers:
+  - name: EuclideanClusteringModifier
+    distance_threshold: 0.01
+    min_cluster_size: 1
+    max_cluster_size: -1
+  - name: PlaneProjectionModifier
+    distance_threshold: 0.02
+    max_planes: 1
+    min_vertices: 1
+tool_path_planner:
+  name: PlaneSlicerRasterPlanner
+  direction_generator:
+    name: FixedDirectionGenerator
+    x: 1
+    y: 0
+    z: 0
+  origin_generator:
+    name: FixedOriginGenerator
+    x: 0
+    y: 0
+    z: 0
+  line_spacing: 0.050000000000000003
+  point_spacing: 0.014999999999999999
+  min_hole_size: 0.10000000000000001
+  search_radius: 0.10000000000000001
+  min_segment_size: 0.01
+  bidirectional: true
+tool_path_modifiers:
+  - name: SnakeOrganizationModifier
+  - name: DirectionOfTravelOrientationModifier

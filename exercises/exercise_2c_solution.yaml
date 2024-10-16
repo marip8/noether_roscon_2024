@@ -1,0 +1,33 @@
+mesh_modifiers:
+  - name: CylinderSegmentation
+    min_radius: 0.20000000000000001
+    max_radius: 0.29999999999999999
+    distance_threshold: 0.01
+    axis_threshold: 3.1400000000000001
+    normal_distance_weight: 0.014999999999999999
+    min_vertices: 1
+    max_cylinders: 1
+    max_iterations: 100
+tool_path_planner:
+  name: PlaneSlicerRasterPlanner
+  direction_generator:
+    name: PrincipalAxisDirectionGenerator
+    rotation_offset: 85
+  origin_generator:
+    name: FixedOriginGenerator
+    x: 0
+    y: 0
+    z: 0
+  line_spacing: 0.050000000000000003
+  point_spacing: 0.02
+  min_hole_size: 0.10000000000000001
+  search_radius: 0.10000000000000001
+  min_segment_size: 0.10000000000000001
+  bidirectional: true
+tool_path_modifiers:
+  - name: SnakeOrganizationModifier
+  - name: DirectionOfTravelOrientationModifier
+  - name: UniformSpacingLinearModifier
+    point_spacing: 0.050000000000000003
+  - name: CameraStandoff
+    camera_standoff: 0.20000000000000001

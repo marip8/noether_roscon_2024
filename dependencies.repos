@@ -1,0 +1,12 @@
+- git:
+    local-name: ros_industrial_cmake_boilerplate
+    uri: https://github.com/ros-industrial/ros_industrial_cmake_boilerplate.git
+    version: 0.5.4
+- git:
+    local-name: boost_plugin_loader
+    uri: https://github.com/tesseract-robotics/boost_plugin_loader.git
+    version: 0.2.2
+- git:
+    local-name: noether
+    uri: https://github.com/ros-industrial/noether.git
+    version: 3fb6b9e391fa826a8dba9cea1f3f2a3f545d809a
