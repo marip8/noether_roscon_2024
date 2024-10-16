@@ -15,7 +15,7 @@ struct CameraStandoffToolPathModifierWidgetPlugin : public ToolPathModifierWidge
     // Create the widget for the camera standoff tool path modifier
     auto* widget = new CameraStandoffToolPathModifierWidget(parent);
 
-            // Attempt to configure the widget
+    // Attempt to configure the widget
     if (!config.IsNull())
       widget->configure(config);
 
@@ -52,7 +52,7 @@ struct NoOpToolPathPlannerWidgetPlugin : public ToolPathPlannerWidgetPlugin
   }
 };
 
-} // namespace noether
+}  // namespace noether
 
 // Export the plugin
 EXPORT_TOOL_PATH_MODIFIER_WIDGET_PLUGIN(noether::CameraStandoffToolPathModifierWidgetPlugin, CameraStandoff)

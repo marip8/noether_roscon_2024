@@ -22,4 +22,4 @@ protected:
   QDoubleSpinBox* camera_standoff_;
 };
 
-} // namespace
+}  // namespace noether

@@ -13,4 +13,4 @@ public:
   ToolPathPlanner::ConstPtr create() const override;
 };
 
-} // namespace noether
+}  // namespace noether

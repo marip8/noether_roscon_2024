@@ -34,9 +34,11 @@ protected:
   float max_radius_;
   /** @brief Maximum distance (m) a point can be from a model of a cylinder to be considered an inlier */
   float distance_threshold_;
-  /** @brief Maximum angle (radians) by which the axis of a detected cylinder can differ from the axis of the defined model cylinder */
+  /** @brief Maximum angle (radians) by which the axis of a detected cylinder can differ from the axis of the defined
+   * model cylinder */
   float axis_threshold_;
-  /** @brief Distance weighting amount given to normals (vs point positions) when comparing to the cylinder model (value from [0, 1]) */
+  /** @brief Distance weighting amount given to normals (vs point positions) when comparing to the cylinder model (value
+   * from [0, 1]) */
   float normal_distance_weight_;
   /** @brief Minimum number of vertices that a cluster (identfied as a cylinder) must have */
   unsigned min_vertices_;
@@ -46,4 +48,4 @@ protected:
   unsigned max_iterations_;
 };
 
-} // namespace noether
+}  // namespace noether

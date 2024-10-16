@@ -3,9 +3,6 @@
 
 namespace noether
 {
-ToolPathPlanner::ConstPtr NoOpToolPathPlannerWidget::create() const
-{
-  return std::make_unique<NoOpToolPathPlanner>();
-}
+ToolPathPlanner::ConstPtr NoOpToolPathPlannerWidget::create() const { return std::make_unique<NoOpToolPathPlanner>(); }
 
-} // namespace noether
+}  // namespace noether

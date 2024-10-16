@@ -31,4 +31,4 @@ protected:
   QSpinBox* max_iterations_;
 };
 
-} // namespace noether
+}  // namespace noether

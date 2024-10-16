@@ -17,15 +17,15 @@ namespace noether
 /**
  * @brief Projects points onto the cylinder model in place
  * @details pcl::SampleConsensusModelCylinder has a bug in `projectPoints` that was fixed in 1.12.1.
- * To support back to PCL 1.10 (Ubuntu 20.04), we have implemented the projection function ourselves to include the bug fix
+ * To support back to PCL 1.10 (Ubuntu 20.04), we have implemented the projection function ourselves to include the bug
+ * fix
  */
-void projectInPlace(pcl::PCLPointCloud2& cloud,
-                    const Eigen::VectorXf &model_coefficients)
+void projectInPlace(pcl::PCLPointCloud2& cloud, const Eigen::VectorXf& model_coefficients)
 {
-  Eigen::Vector4f line_pt  (model_coefficients[0], model_coefficients[1], model_coefficients[2], 0.0f);
-  Eigen::Vector4f line_dir (model_coefficients[3], model_coefficients[4], model_coefficients[5], 0.0f);
-  float ptdotdir = line_pt.dot (line_dir);
-  float dirdotdir = 1.0f / line_dir.dot (line_dir);
+  Eigen::Vector4f line_pt(model_coefficients[0], model_coefficients[1], model_coefficients[2], 0.0f);
+  Eigen::Vector4f line_dir(model_coefficients[3], model_coefficients[4], model_coefficients[5], 0.0f);
+  float ptdotdir = line_pt.dot(line_dir);
+  float dirdotdir = 1.0f / line_dir.dot(line_dir);
 
   // Create a helper function for projecting each point
   // https://github.com/PointCloudLibrary/pcl/blob/5f608cfb5397fe848c7d61c4ae5f5b1ab760ba80/sample_consensus/include/pcl/sample_consensus/impl/sac_model_cylinder.hpp#L398-L407
@@ -37,7 +37,7 @@ void projectInPlace(pcl::PCLPointCloud2& cloud,
 
     Eigen::Vector4f dir = p - pp;
     dir[3] = 0.0f;
-    dir.normalize ();
+    dir.normalize();
 
     // Calculate the projection of the point onto the cylinder
     pp += dir * model_coefficients[6];
@@ -185,4 +185,4 @@ std::vector<pcl::PolygonMesh> CylinderSegmentationMeshModifier::modify(const pcl
   return output;
 }
 
-} // namespace noether
+}  // namespace noether

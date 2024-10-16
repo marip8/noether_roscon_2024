@@ -2,9 +2,6 @@
 
 namespace noether
 {
-ToolPaths NoOpToolPathPlanner::plan(const pcl::PolygonMesh& mesh) const
-{
-  return {};
-}
+ToolPaths NoOpToolPathPlanner::plan(const pcl::PolygonMesh& mesh) const { return {}; }
 
-} // namespace noether
+}  // namespace noether
