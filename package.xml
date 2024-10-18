@@ -8,9 +8,9 @@
   <license>Apache 2.0</license>
 
   <depend>noether_tpp</depend>
-  <depend>nother_gui</depend>
+  <depend>noether_gui</depend>
   <depend>libqt5-widgets</depend>
-  <build_depend>ros_industrial_cmake_boilerplate</depend>
+  <build_depend>ros_industrial_cmake_boilerplate</build_depend>
 
   <export>
     <build_type>cmake</build_type>
