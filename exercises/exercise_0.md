@@ -17,7 +17,8 @@ Use the following steps to setup a workspace and compile this repository:
 1. Install the dependencies
     ```commandLine
     vcs import src < src/noether_roscon_2024/dependencies.repos
-    rosdep install --from-paths src -iry
+    source /opt/ros/<distro>/setup.bash
+    rosdep install --from-paths src -iry --skip-keys libvtk
     ```
 
 1. Build
