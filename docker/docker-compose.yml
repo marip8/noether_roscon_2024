@@ -1,0 +1,32 @@
+services:
+  noether_roscon_2024:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        DISTRO: humble
+    environment:
+      DISPLAY: $DISPLAY
+      XAUTHORITY: $XAUTHORITY
+      NVIDIA_DRIVER_CAPABILITIES: all
+      ROS_LOG_DIR: /tmp
+      NOETHER_PLUGIN_LIBS: noether_roscon_2024
+    container_name: noether_roscon_2024
+    image: ghcr.io/marip8/noether_roscon_2024:humble-main
+    stdin_open: true
+    tty: true
+    network_mode: host
+    privileged: true
+    user: ${CURRENT_UID}  # CURRENT_UID=$(id -u):$(id -g)
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/hosts:/etc/hosts
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
