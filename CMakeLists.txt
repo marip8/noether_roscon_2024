@@ -40,6 +40,8 @@ target_link_libraries(${PROJECT_NAME}_plugins PUBLIC ${PROJECT_NAME})
 # Install headers
 install(DIRECTORY include/ DESTINATION include/)
 
+install(DIRECTORY exercises meshes DESTINATION share/${PROJECT_NAME})
+
 # Package configuration via RICB
 configure_package(
   NAMESPACE noether
