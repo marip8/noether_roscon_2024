@@ -10,9 +10,9 @@ services:
       XAUTHORITY: $XAUTHORITY
       NVIDIA_DRIVER_CAPABILITIES: all
       ROS_LOG_DIR: /tmp
-      NOETHER_PLUGIN_LIBS: noether_roscon_2024
+      NOETHER_PLUGIN_LIBS: noether_roscon_2024_plugins
     container_name: noether_roscon_2024
-    image: ghcr.io/marip8/noether_roscon_2024:humble-main
+    image: ghcr.io/marip8/noether_roscon_2024:humble-master
     stdin_open: true
     tty: true
     network_mode: host
