@@ -7,6 +7,42 @@ Your efforts should utimately produce output tool paths that look something like
 
 ![Exercise 1a Image 2](exercise_1a_2.png)
 
+## Running the GUI
+
+First launch the `noether_gui` app.
+This can be done using the ROS2 CLI utilities:
+
+```
+source <path>/<to>/<workspace>/install/setup.bash
+ros2 run noether_gui noether_gui_app
+```
+
+or by manually running the GUI executable:
+
+```
+cd <path>/<to>/<workspace>
+source install/setup.bash
+./install/noether_gui/bin/noether_gui_app
+```
+
+### Java Library Loading Issues
+
+On Ubuntu 22.04+, a few Java libraries cannot be found for dynamic loading by default.
+Add the following paths to the `LD_LIBRARY_PATH` environment variable to avoid this issue.
+Consider adding this change to your `.bashrc` file so you don't have to set it every time.
+
+#### Ubuntu 22.04
+
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-11-openjdk-amd64/lib:/usr/lib/jvm/java-11-openjdk-amd64/lib/server
+```
+
+#### Ubuntu 24.04
+
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-21-openjdk-amd64/lib:/usr/lib/jvm/java-21-openjdk-amd64/lib/server
+```
+
 ## Tasks
 
 - Load [the `multi_component.ply` mesh](../meshes/multi_component_mesh.ply)
@@ -18,7 +54,7 @@ Your efforts should utimately produce output tool paths that look something like
 - Add an approach and departure point above the start/end of each raster
 - Visualize the tool path lines and modified mesh
 
-# Solution
+## Solution
 
 The solution tool path planner configuration file can be found [here](exercise_1a_solution.yaml).
 Load this file into the GUI to see the combination of mesh modifiers, tool path planner, and tool path modifiers used to accomplish the tasks listed above.
